@@ -23,7 +23,7 @@ configure do
 	"created_date"	DATE,
 	"content"	TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
-);'
+)'
 end
 
 get '/' do
