@@ -41,7 +41,8 @@ end
 
 #обработчик пост запроса (браузер отправляет данные на сервер)
 post '/new' do
-  content = params[:content]
+	#Получаем переменную из пост запроса
+  	content = params[:content]
 
   if content.length <= 0
   	@error = 'Type text'
@@ -70,4 +71,14 @@ get '/details/:post_id' do
 
 	#возвращаем представление 
 	erb :details
+end
+
+#Обработчик пост запроса .details
+post '/details/:post_id' do
+	#получаем переменную из URl
+	post_id = params[:post_id]
+	#Получаем переменную из пост запроса
+	content = params[:content]
+
+	erb "You typed comment #{content} fro post #{post_id}"
 end
