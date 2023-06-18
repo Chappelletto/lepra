@@ -23,6 +23,7 @@ configure do
 	"id"	INTEGER,
 	"created_date"	DATE,
 	"content"	TEXT,
+	"author" TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )'
 
@@ -52,14 +53,21 @@ end
 post '/new' do
 	#Получаем переменную из пост запроса
   	content = params[:content]
+  	author = params[:author]
 
-  if content.length <= 0
-  	@error = 'Type text'
-  	return erb :new
-  end
+ 	if content.length <= 0
+  		@error = 'Введите текст поста'
+  		return erb :new
+ 	end
+
+	if author.length <= 0
+  		@error = 'Введите имя автора'
+  		return erb :new
+ 	end
+
 
   #Сохранение данных в бд
-  @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+  @db.execute 'insert into Posts (content, author, created_date) values (?, ?, datetime())', [content, author]
 
   #Перенаправление на главную страницу
   redirect to '/'
